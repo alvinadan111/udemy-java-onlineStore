@@ -16,5 +16,3 @@ Deployment algorithm:
 - Run the application again and use it
 
 2019 © Andrii Piatakha
-
-
