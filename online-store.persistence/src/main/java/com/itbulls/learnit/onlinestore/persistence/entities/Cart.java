@@ -1,16 +1,16 @@
 package com.itbulls.learnit.onlinestore.persistence.entities;
 
-import java.util.List;
-
 public interface Cart {
 
-	void setProducts(List<Product> products);
+	void setProduct(Product product);
 
-	List<Product> getProducts();
+	Product getProduct();
 
 	void setCustomer(User customer);
 
 	User getCustomer();
+
+
 
 
 }

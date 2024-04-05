@@ -3479,4 +3479,18 @@ html .ui-button.ui-state-disabled:active {
 	/* background: rgb(0, 0, 0); */
 }
 
+.sign-in-error {
+	color: red;
+	margin-top: 10px
+}
+
+.order-creation-msg {
+	text-align: center;
+}
+
+.add-to-cart-msg {
+	text-align: center;
+	margin-top: 10px
+}
+
 

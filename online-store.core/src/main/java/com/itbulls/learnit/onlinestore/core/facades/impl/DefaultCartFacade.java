@@ -1,7 +1,5 @@
 package com.itbulls.learnit.onlinestore.core.facades.impl;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,17 +24,22 @@ public class DefaultCartFacade implements CartFacade {
 	@Override
 	public void addProductToCart(User userId, Product product) {
 		Cart cart = new DefaultCart();
-		cart.setProducts(new ArrayList<>(Arrays.asList(product)));
+		cart.setProduct(product);
 		cart.setCustomer(userId);
 
 		cartDao.saveCart(cartConverter.convertCartToCartDto(cart));
 
 	}
 
-	// TODO to finish after addProductToCart()
 	@Override
 	public List<Cart> getProductsFromCartByUserId(Integer userId) {
 		return cartConverter.convertCartDtosToCart(cartDao.getProductsFromCartByUserId(userId));
+	}
+
+	@Override
+	public void deleteAllCartProductsByUserId(Integer userId) {
+		cartDao.deleteCartProductsByUserId(userId);
+
 	}
 
 

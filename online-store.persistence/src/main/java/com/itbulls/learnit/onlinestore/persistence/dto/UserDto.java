@@ -1,5 +1,8 @@
 package com.itbulls.learnit.onlinestore.persistence.dto;
 
+import java.math.BigDecimal;
+import java.util.List;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -12,53 +15,52 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 
-import java.math.BigDecimal;
-import java.util.Collection;
-import java.util.List;
-
 @Entity(name = "user")
 public class UserDto {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer id;
-	
+
 	@Column(name = "first_name")
 	private String firstName;
-	
+
 	@Column(name = "last_name")
 	private String lastName;
-	
+
 	@Column(name = "email", unique = true, length = 50)
 	private String email;
-	
+
 	@ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable( 
-        name = "users_roles", 
+    @JoinTable(
+        name = "users_roles",
         joinColumns = @JoinColumn(
-          name = "user_id", referencedColumnName = "id"), 
+          name = "user_id", referencedColumnName = "id"),
         inverseJoinColumns = @JoinColumn(
-          name = "role_id", referencedColumnName = "id")) 
+          name = "role_id", referencedColumnName = "id"))
     private List<RoleDto> roles;
-	
+
 	@Column(name = "enabled")
 	private boolean isEnabled;
-	
+
 	@Column(name = "money")
 	private BigDecimal money;
-	
+
 	@Column(name = "credit_card")
 	private String creditCard;
-	
+
 	@Column(name = "password")
 	private String password;
-	
+
 	@Column(name = "partner_code", unique = true, length = 50)
 	private String partnerCode;
-	
+
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "referrer_user_id")
 	private UserDto referrerUser;
+
+
+
 	public Integer getId() {
 		return id;
 	}
@@ -128,5 +130,6 @@ public class UserDto {
 	public void setIsEnabled(boolean enabled) {
 		this.isEnabled = enabled;
 	}
-	
+
+
 }

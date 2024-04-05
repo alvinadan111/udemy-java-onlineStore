@@ -1,5 +1,7 @@
 package com.itbulls.learnit.onlinestore.web.security;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -9,16 +11,16 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.stereotype.Component;
 
 public class DefaultAuthenticationProvider implements AuthenticationProvider {
 
 	@Autowired
 	private UserDetailsService userDetailsService;
-	
+
 	@Autowired
 	private PasswordEncoder passwordEncoder;
-	
+
+	@Transactional
 	@Override
 	public Authentication authenticate(Authentication authentication) throws AuthenticationException {
 		String username = authentication.getName();

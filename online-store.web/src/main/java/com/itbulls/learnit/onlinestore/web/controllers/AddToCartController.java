@@ -3,6 +3,8 @@ package com.itbulls.learnit.onlinestore.web.controllers;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
+import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -20,6 +22,9 @@ public class AddToCartController {
 	@Autowired
 	private ProductFacade productFacade;
 
+	@Autowired
+	private MessageSource messageSource;
+
 
 	@GetMapping("/addToCart")
 	public String doGet(@RequestParam("guid") String productGuid, @RequestParam("categoryId") String categoryId, @RequestParam("page") Integer activePage, HttpSession session) {
@@ -27,7 +32,7 @@ public class AddToCartController {
 				(User) session.getAttribute(SignInController.LOGGED_IN_USER_ATTR),
 				productFacade.getProductByGuid(productGuid));
 
-//		session.setAttribute("orderStatus", messageSource.getMessage("order.created.msg", null, LocaleContextHolder.getLocale()));
+		session.setAttribute("addToCartStatus", messageSource.getMessage("addToCart.successful.msg", null, LocaleContextHolder.getLocale()));
 		return "redirect:/category?id=" +categoryId+ "&page=" +activePage;
 	}
 

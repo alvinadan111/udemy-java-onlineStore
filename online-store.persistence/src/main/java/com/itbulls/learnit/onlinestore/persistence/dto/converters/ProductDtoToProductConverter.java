@@ -13,7 +13,7 @@ import com.itbulls.learnit.onlinestore.persistence.entities.impl.DefaultProduct;
 
 @Service
 public class ProductDtoToProductConverter {
-	
+
 	@Autowired
 	private CategoryDtoToCategoryConverter categoryConverter;
 
@@ -24,7 +24,7 @@ public class ProductDtoToProductConverter {
 				products.add(convertProductDtoToProduct(productDto));
 			}
 		}
-		
+
 		return products;
 	}
 
@@ -34,8 +34,9 @@ public class ProductDtoToProductConverter {
 			product.setId(productDto.getId());
 			product.setPrice(productDto.getPrice().doubleValue());
 			product.setProductName(productDto.getProductName());
-			if (productDto.getCategoryDto() != null)
+			if (productDto.getCategoryDto() != null) {
 				product.setCategoryName(productDto.getCategoryDto().getCategoryName());
+			}
 			product.setImgName(productDto.getImgName());
 			product.setDescription(productDto.getDescription());
 			product.setGuid(productDto.getGuid());
@@ -45,15 +46,15 @@ public class ProductDtoToProductConverter {
 
 	public List<ProductDto> convertProductsToProductDtos(List<Product> products) {
 		List<ProductDto> productDtos = new ArrayList<>();
-		
+
 		for (Product product : products) {
 			productDtos.add(convertProductToProductDto(product));
 		}
-		
+
 		return productDtos;
 	}
 
-	private ProductDto convertProductToProductDto(Product product) {
+	public ProductDto convertProductToProductDto(Product product) {
 		ProductDto productDto = new ProductDto();
 		productDto.setId(product.getId());
 		productDto.setPrice(BigDecimal.valueOf(product.getPrice()));

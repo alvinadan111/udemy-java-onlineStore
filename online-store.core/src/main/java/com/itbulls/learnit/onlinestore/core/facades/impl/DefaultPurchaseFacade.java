@@ -21,29 +21,41 @@ import com.itbulls.learnit.onlinestore.persistence.entities.impl.DefaultPurchase
 
 @Service
 public class DefaultPurchaseFacade implements PurchaseFacade {
-	
+
 	@Autowired
 	private PurchaseDao purchaseDao;
-	
+
 	@Autowired
 	private PurchaseDtoToPurchaseConverter purchaseConverter;
-	
+
 	@Autowired
 	private UserFacade userFacade;
-	
+
 	@Value("${referrer.reward.rate}")
 	private Double reffererRewardRate;
-	
+
 	@Override
 	public void createPurchase(User user, Product product) {
 		Purchase purchase = new DefaultPurchase();
 		purchase.setCustomer(user);
 		purchase.setProducts(new ArrayList<>(Arrays.asList(product)));
-		
+
 		var purchaseStatus = new DefaultPurchaseStatus();
 		purchaseStatus.setId(1); // the initial, the first purchase status
 		purchase.setPurchaseStatus(purchaseStatus);
-		
+
+		purchaseDao.savePurchase(purchaseConverter.convertPurchaseToPurchaseDto(purchase));
+	}
+
+	public void createPurchases(User user, List<Product> products) {
+		Purchase purchase = new DefaultPurchase();
+		purchase.setCustomer(user);
+		purchase.setProducts(products);
+
+		var purchaseStatus = new DefaultPurchaseStatus();
+		purchaseStatus.setId(1); // the initial, the first purchase status
+		purchase.setPurchaseStatus(purchaseStatus);
+
 		purchaseDao.savePurchase(purchaseConverter.convertPurchaseToPurchaseDto(purchase));
 	}
 
@@ -59,10 +71,10 @@ public class DefaultPurchaseFacade implements PurchaseFacade {
 		int newPurchaseStatusId = purchaseStatus.getId() + 1;
 		purchaseStatus.setId(newPurchaseStatusId);
 		purchase.setPurchaseStatus(purchaseStatus);
-		
+
 		purchaseDao.updatePurchase(purchaseConverter.convertPurchaseToPurchaseDto(purchase));
-		
-		if (LAST_STATUS_OF_ORDER_FULFILMENT_ID.equals(newPurchaseStatusId) 
+
+		if (LAST_STATUS_OF_ORDER_FULFILMENT_ID.equals(newPurchaseStatusId)
 				&& purchase.getCustomer().getReferrerUser() != null) {
 			User referrerUser = purchase.getCustomer().getReferrerUser();
 			double shareFromPurchase = purchase.getTotalPurchaseCost() * reffererRewardRate;

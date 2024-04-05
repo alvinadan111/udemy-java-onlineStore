@@ -5,6 +5,7 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 
 import org.springframework.stereotype.Repository;
@@ -61,6 +62,31 @@ public class JpaCartDao implements CartDao {
 			}
 		}
 	}
+
+
+
+	@Override
+	public void deleteCartProductsByUserId(int userId) {
+	    EntityManagerFactory emf = null;
+	    EntityManager em = null;
+	    try {
+	        emf = Persistence.createEntityManagerFactory("persistence-unit");
+	        em = emf.createEntityManager();
+	        em.getTransaction().begin();
+	        Query query = em.createQuery("DELETE FROM cart c WHERE c.userDto.id = :id");
+	        query.setParameter("id", userId);
+	        int rowsAffected = query.executeUpdate();
+	        em.getTransaction().commit();
+	    } finally {
+	        if (emf != null) {
+	            emf.close();
+	        }
+	        if (em != null) {
+	            em.close();
+	        }
+	    }
+	}
+
 
 
 

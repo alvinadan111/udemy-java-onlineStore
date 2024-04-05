@@ -12,4 +12,6 @@ public interface CartFacade {
 
 	List<Cart> getProductsFromCartByUserId(Integer userId);
 
+	void deleteAllCartProductsByUserId(Integer userId);
+
 }

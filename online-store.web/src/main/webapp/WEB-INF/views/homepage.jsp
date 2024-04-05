@@ -1,4 +1,6 @@
 <%@ taglib prefix="shop" tagdir="/WEB-INF/tags/shop"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <!DOCTYPE html>
 <html lang="en">
    <head>
@@ -11,6 +13,9 @@
    <body>
       
       <shop:header/>
+      
+      <h2 id="order-creation-msg" class="order-creation-msg">${orderStatus}</h2>
+      <c:remove var="orderStatus"/>
       
       <shop:categories-tiles/>
       
@@ -166,6 +171,17 @@
       
       <shop:footer/>
       <shop:js-imports-main/>
+      
+      <script>
+	    // Hide the error message after a certain amount of time (e.g., 5 seconds)
+	    setTimeout(function() {
+	        var errorMessage = document.getElementById("order-creation-msg");
+	        if (errorMessage) {
+	            errorMessage.style.display = "none";
+	        }
+	    }, 5000); // 5000 milliseconds = 5 seconds
+	</script>
+      
       
    </body>
 </html>

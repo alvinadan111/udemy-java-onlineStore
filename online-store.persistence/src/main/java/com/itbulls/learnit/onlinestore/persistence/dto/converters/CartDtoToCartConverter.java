@@ -21,19 +21,15 @@ public class CartDtoToCartConverter {
 
 	public Cart convertCartDtoToCart(CartDto cartDto) {
 		Cart cart = new DefaultCart();
-
 		cart.setCustomer(userConverter.convertUserDtoToUser(cartDto.getUserDto()));
-		cart.setProducts(productConverter.convertProductDtosToProducts(cartDto.getProductDtos()));
-
+		cart.setProduct(productConverter.convertProductDtoToProduct(cartDto.getProductDto()));
 		return cart;
 	}
 
 	public CartDto convertCartToCartDto(Cart cart) {
 		CartDto cartDto = new CartDto();
-
-		cartDto.setProductDtos(productConverter.convertProductsToProductDtos(cart.getProducts()));
 		cartDto.setUserDto(userConverter.convertUserToUserDto(cart.getCustomer()));
-
+		cartDto.setProductDto(productConverter.convertProductToProductDto(cart.getProduct()));
 		return cartDto;
 	}
 

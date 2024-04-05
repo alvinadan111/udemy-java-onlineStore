@@ -12,6 +12,11 @@
    </head>
    <body>
       <shop:header/>
+      <div id="add-to-cart-msg" class="add-to-cart-msg">
+	      <h3>${addToCartStatus}</h3>
+		  <c:remove var="addToCartStatus"/>
+      </div>
+	  
       <div class="furniture-box">
          <div class="container">
             <div class="row">
@@ -47,5 +52,15 @@
            $("#boxscroll").niceScroll({cursorborder:"",cursorcolor:"#ededed",boxzoom:true}); // First scrollable DIV
          });
       </script>
+      
+      <script>
+	    // Hide the error message after a certain amount of time (e.g., 5 seconds)
+	    setTimeout(function() {
+	        var errorMessage = document.getElementById("add-to-cart-msg");
+	        if (errorMessage) {
+	            errorMessage.style.display = "none";
+	        }
+	    }, 3000); // 5000 milliseconds = 5 seconds
+	</script>
    </body>
 </html>

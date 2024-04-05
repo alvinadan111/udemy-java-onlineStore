@@ -37,6 +37,7 @@
 							<span class="focus-input100" data-placeholder="Password"></span>
 							
 						</div>
+						
 						<div class="form-check">
 						  <input class="form-check-input" type="checkbox" name="remember">
 						  <label class="form-check-label" for="flexCheckDefault">
@@ -52,6 +53,12 @@
 								</button>
 							</div>
 						</div>
+						
+						<c:if test="${UNSUCCESSFUL_LOGIN_COUNT < 3}">
+							<div id="sign-in-error" class="sign-in-error">
+								Incorrect username or password. Please, try to signing in again.
+							</div>
+						</c:if>
 	
 						<div class="text-center p-t-115">
 							<span class="txt1">
@@ -72,13 +79,22 @@
 					</div>
 				</c:if>
 				
-				
 			</div>
 		</div>
 	</div>
 	
 	<shop:footer/>
 	<shop:js-imports-signin/>
+	
+	<script>
+	    // Hide the error message after a certain amount of time (e.g., 5 seconds)
+	    setTimeout(function() {
+	        var errorMessage = document.getElementById("sign-in-error");
+	        if (errorMessage) {
+	            errorMessage.style.display = "none";
+	        }
+	    }, 3000); // 5000 milliseconds = 5 seconds
+	</script>
 
 </body>
 </html>

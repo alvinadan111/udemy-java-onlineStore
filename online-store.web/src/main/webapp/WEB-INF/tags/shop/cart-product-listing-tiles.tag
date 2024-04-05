@@ -12,13 +12,13 @@
 				<div class="big-dit-b clearfix">
 					<div class="col-md-6">
 						<div class="left-big">
-							<h3>${cartProduct.product.productName}</h3>
+							<h2>${cartProduct.product.productName}</h2>
 						</div>
 					</div>
 					<div class="col-md-6">
 						<div class="right-big-b">
 							<div class="tight-btn-b clearfix">
-								<h2>$${cartProduct.product.price}</h2>
+								<h3>$${cartProduct.product.price}</h3>
 							</div>
 						</div>
 					</div>
@@ -26,10 +26,18 @@
 			</div>
 		</c:forEach>
 		
-		<div class="col-md-5 col-sm-16">
-            <div class="price-box-right">
-               	<a href="#">Buy All</a>
-            </div>
+		
+         <c:if test="${empty cartProducts}">
+             	<h2>No products added to cart yet.</h2>
+         </c:if>
+         
+		 <div class="col-md-5 col-sm-16">
+            
+            <c:if test="${not empty cartProducts}">
+	            <div class="price-box-right">
+	               <a href="checkout-all">Buy All</a>
+	            </div>
+            </c:if>
         </div>
 		
 	</div>

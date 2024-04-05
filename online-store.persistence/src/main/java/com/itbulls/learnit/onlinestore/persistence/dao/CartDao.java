@@ -11,5 +11,7 @@ public interface CartDao {
 
 	List<CartDto> getProductsFromCartByUserId(int userId);
 
+	void deleteCartProductsByUserId(int userId);
+
 
 }
